@@ -35,20 +35,26 @@ class Command
     @result = "so deposit #{user_address(@user_id)} many address"
   end
 
-  alias :":dogecoin:" :tip
+
   def tip
     user = @params.shift
-    if user =~ /<@(U\d+)>/
-      target_user = $1
-      available_balance = client.getbalance(@user_id)
-      amount = @params.shift
-      @result = "such generous <@#{@user_id}> => <@#{target_user}> #{amount}Ð"
-    else
-      @error = true
-      @result = "such error pls say tip @username amount"
-    end
+    raise "pls say tip @username amount" unless user =~ /<@(U.+)>/
+
+    target_user = $1
+    available_balance = client.getbalance(@user_id)
+    amount = (@params.shift).to_i
+    raise "so poor not money many sorry" unless available_balance > amount + 1
+    raise "such stupid no purpose" if amount < 10
     
+    tx = client.sendfrom user_id, user_address(target_user), amount
+    @result = "such generous <@#{@user_id}> => <@#{target_user}> #{amount}Ð"
+    
+    @result += " (#{tx})"
+  rescue StandardError => ex
+    @error = true
+    @result = "such error #{ex.message}"
   end
+  alias :":dogecoin:" :tip
 
   private 
 
