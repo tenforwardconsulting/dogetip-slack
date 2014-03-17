@@ -7,9 +7,14 @@ set :bind, '0.0.0.0'
 
 
 post "/tip" do
-  command = new Command(params)
-  command.perform
-  json text: command.result
+  puts params
+  begin
+    command = Command.new(params)
+    command.perform
+    json text: command.result, icon_emoji: command.icon_emoji
+  rescue Exception => ex
+    json text: "so error: #{ex.message}", icon_emoji: ":japanese_goblin:"
+  end
 end
 
 
