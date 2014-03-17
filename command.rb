@@ -2,7 +2,7 @@ require 'bitcoin-client'
 require './bitcoin_client_extensions.rb'
 class Command
   attr_accessor :result, :error, :action, :user_name, :icon_emoji
-  ACTIONS = %w(balance info deposit tip)
+  ACTIONS = %w(balance info deposit tip withdraw)
   def initialize(slack_params)
     text = slack_params['text']
     @params = text.split(/\s+/)
@@ -41,13 +41,10 @@ class Command
     raise "pls say tip @username amount" unless user =~ /<@(U.+)>/
 
     target_user = $1
-    available_balance = client.getbalance(@user_id)
-    amount = (@params.shift).to_i
-    raise "so poor not money many sorry" unless available_balance > amount + 1
-    raise "such stupid no purpose" if amount < 10
-    
-    tx = client.sendfrom user_id, user_address(target_user), amount
-    @result = "such generous <@#{@user_id}> => <@#{target_user}> #{amount}Ð"
+    set_amount
+
+    tx = client.sendfrom @user_id, user_address(target_user), @amount
+    @result = "such generous <@#{@user_id}> => <@#{target_user}> #{@amount}Ð"
     
     @result += " (#{tx})"
   rescue StandardError => ex
@@ -56,7 +53,21 @@ class Command
   end
   alias :":dogecoin:" :tip
 
-  private 
+  def withdraw
+    address = @params.shift
+    set_amount
+    tx = client.sendfrom @user_id, address, @amount
+    @result = "such stingy <@#{@user_id}> => #{address} #{@amount}Ð (#{tx})"
+  end
+
+  private
+
+  def set_amount
+    available_balance = client.getbalance(@user_id)
+    @amount = (@params.shift).to_i
+    raise "so poor not money many sorry" unless available_balance > @amount + 1
+    raise "such stupid no purpose" if @amount < 10
+  end
 
   def user_address(user_id)
      existing = client.getaddressesbyaccount(user_id)
