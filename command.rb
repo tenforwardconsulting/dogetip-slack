@@ -43,7 +43,7 @@ class Command
     set_amount
 
     tx = client.sendfrom @user_id, user_address(target_user), @amount
-    @result[:text] = "such generous!"
+    @result[:text] = "such generous! <@#{@user_id}> => <@#{target_user}> #{@amount}Ð"
     @result[:attachments] = [{
       fallback:"<@#{@user_id}> => <@#{target_user}> #{@amount}Ð",
       color: "good",
@@ -62,7 +62,7 @@ class Command
       }]
     }] 
     
-    @result[:text] += " (#{tx})"
+    @result[:text] += " (<http://dogechain.info/tx/#{tx}|such blockchain>)"
   end
 
   alias :":dogecoin:" :tip
