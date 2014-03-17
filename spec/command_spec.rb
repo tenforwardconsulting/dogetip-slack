@@ -20,6 +20,6 @@ describe Command do
     params['text'] = 'dogetipper balance'
     c = Command.new params
     c.perform
-    c.result.should eq "Balance for Samson is 0"
+    c.result.should eq "Balance for Samson is 0.0"
   end
 end

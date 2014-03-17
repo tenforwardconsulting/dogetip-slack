@@ -8,7 +8,7 @@ set :bind, '0.0.0.0'
 
 post "/tip" do
   command = new Command(params)
-
+  command.perform
   json text: command.result
 end
 

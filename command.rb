@@ -27,7 +27,7 @@ class Command
 
   def balance
     balance = client.getbalance(@user_id)
-    @result = "Balance for #{@user} is #{balance}"
+    @result = "Balance for #{@user_name} is #{balance}"
   end
 
   def info
