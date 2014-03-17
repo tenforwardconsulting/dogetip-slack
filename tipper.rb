@@ -14,12 +14,11 @@ post "/tip" do
   begin
     command = Command.new(params)
     command.perform
-    json text: command.result, icon_emoji: command.icon_emoji
+    json command.result
   rescue Exception => ex
     json text: "so error: #{ex.message}", icon_emoji: ":japanese_goblin:"
   end
 end
-
 
 get "/" do
   "it works!"
