@@ -30,7 +30,7 @@ class Command
     @result[:text] = "@#{@user_name} such balance #{balance}Ð"
     if (balance > 0)
       @result[:text] += " many coin"
-    elsif balance > 100
+    elsif balance > 1000
       @result[:text] += " very wealth!"
       @result[:icon_emoji] = ":moneybag:"
     end

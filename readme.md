@@ -1,7 +1,7 @@
-=== dogetip-slack ===
-= A Dogecoin tipping bot for Slack =
+# dogetip-slack
+#### A Dogecoin tipping bot for Slack =
 
-=== Setup ===
+# Setup
 1.  Install dogecoind on your server 
   a. Usually this is done on linux by building from [source](https://github.com/dogecoin/dogecoin)
   b. Be sure to edit dogecoin.conf to set your rpcuser and rpcpassword
@@ -19,10 +19,11 @@
 4. Launch the server
     DOGECOIN_USER=rpcuser DOGECOIN_PASSWORD=rpcpassword SLACK_API_TOKEN=YOURSLACKTOKENHERE bundle exec ruby tipper.rb -p 4567
 
-== Commands ==
+# Commands
 
 * Tip - send dogecoin!
     dogetipper tip @somebody 100
+    dogetipper tip @somebody random 
 
 * Deposit - put dogecoin in
     dogetipper deposit
@@ -33,7 +34,9 @@
 * Balance - find out how much is in your wallet
     dogetipper balance
 
+* Networkinfo - Get the output of getinfo.  Note:  this will disclose the entire aggregate balance of the hot wallet to everyone in the chat
+    dogetipper networkinfo
 
-== Security ==
+# Security
 
-This runs an unencrypted hot wallet on your server.  ***This is not even close to secure.***  You should not store significant amounts of dogecoin in this wallet.  Withdraw your tips to an offline wallet often. 
+## This runs an unencrypted hot wallet on your server.  ***This is not even close to secure.***  You should not store significant amounts of dogecoin in this wallet.  Withdraw your tips to an offline wallet often. 
