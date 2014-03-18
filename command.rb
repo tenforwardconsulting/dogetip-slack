@@ -2,7 +2,7 @@ require 'bitcoin-client'
 require './bitcoin_client_extensions.rb'
 class Command
   attr_accessor :result, :action, :user_name, :icon_emoji
-  ACTIONS = %w(balance info deposit tip withdraw)
+  ACTIONS = %w(balance info deposit tip withdraw networkinfo)
   def initialize(slack_params)
     text = slack_params['text']
     @params = text.split(/\s+/)
@@ -28,7 +28,13 @@ class Command
   def balance
     balance = client.getbalance(@user_id)
     @result[:text] = "@#{@user_name} such balance #{balance}Ð"
-    @result[:text] += " many coin" if balance > 0
+    if (balance > 0)
+      @result[:text] += " many coin"
+    elsif balance > 100
+      @result[:text] += " very wealth!"
+      @result[:icon_emoji] = ":moneybag:"
+    end
+
   end
 
   def deposit
@@ -72,6 +78,13 @@ class Command
     set_amount
     tx = client.sendfrom @user_id, address, @amount
     @result[:text] = "such stingy <@#{@user_id}> => #{address} #{@amount}Ð (#{tx})"
+    @result[:icon_emoji] = ":shit:"
+  end
+
+  def networkinfo
+    info = client.getinfo
+    @result[:text] = info.to_s
+    @result[:icon_emoji] = ":bar_chart:"
   end
 
   private
@@ -88,6 +101,7 @@ class Command
     lower = [1, @params.shift.to_i].min
     upper = [@params.shift.to_i, available_balance].max
     @amount = rand(lower..upper)
+    @result[:icon_emoji] = ":black_joker:"
   end
 
   def available_balance
