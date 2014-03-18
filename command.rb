@@ -26,7 +26,7 @@ class Command
   end
 
   def balance
-    balance = client.getbalance(@us_id)
+    balance = client.getbalance(@user_id)
     @result[:text] = "@#{@user_name} such balance #{balance}Ð"
     @result[:text] += " many coin" if balance > 0
   end
