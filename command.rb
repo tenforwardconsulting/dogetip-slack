@@ -77,10 +77,21 @@ class Command
   private
 
   def set_amount
-    available_balance = client.getbalance(@user_id)
-    @amount = (@params.shift).to_i
+    @amount = @params.shift
+    randomize_amount if (@amount == "random")
+    
     raise "so poor not money many sorry" unless available_balance >= @amount + 1
     raise "such stupid no purpose" if @amount < 10
+  end
+
+  def randomize_amount
+    lower = [1, @params.shift.to_i].min
+    upper = [@params.shift.to_i, available_balance].max
+    @amount = rand(lower..upper)
+  end
+
+  def available_balance
+     client.getbalance(@user_id)
   end
 
   def user_address(user_id)
