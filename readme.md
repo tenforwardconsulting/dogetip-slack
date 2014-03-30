@@ -18,32 +18,33 @@
   2. Set the trigger word: we use "dogetipper" but doesn't matter what you pick
   3. Set the Url to the server you'll be deploying on http://example.com:4567/tip
 
-4. Launch the server
+4. Launch the server!
 
-    DOGECOIN_USER=rpcuser DOGECOIN_PASSWORD=rpcpassword SLACK_API_TOKEN=YOURSLACKTOKENHERE bundle exec ruby tipper.rb -p 4567
+  `DOGECOIN_USER=rpcuser DOGECOIN_PASSWORD=rpcpassword SLACK_API_TOKEN=YOURSLACKTOKENHERE bundle exec ruby tipper.rb -p 4567`
+  
 
 # Commands
 
 * Tip - send dogecoin!
 
-    dogetipper tip @somebody 100
-    dogetipper tip @somebody random 
+  `dogetipper tip @somebody 100`
+  `dogetipper tip @somebody random`
 
 * Deposit - put dogecoin in
 
-    dogetipper deposit
+  `dogetipper deposit`
 
 * Withdraw - take dogecoin out
 
-    dogetipper withdraw DKzHM7rUB2sP1dgVskVFfdSoysnojuw2pX 100 
+  `dogetipper withdraw DKzHM7rUB2sP1dgVskVFfdSoysnojuw2pX 100`
 
 * Balance - find out how much is in your wallet
 
-    dogetipper balance
+  `dogetipper balance`
 
 * Networkinfo - Get the output of getinfo.  Note:  this will disclose the entire aggregate balance of the hot wallet to everyone in the chat
 
-    dogetipper networkinfo
+  `dogetipper networkinfo`
 
 # Security
 
