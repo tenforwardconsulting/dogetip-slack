@@ -27,6 +27,7 @@ class Command
   end
 
   def balance
+    puts "#{network.upcase}#{::BALANCE_REPLY_PRETEXT}"
     balance = client.getbalance(@user_id)
     @result[:text] = "@#{@user_name} #{Dogecoin::BALANCE_REPLY_PRETEXT} #{balance}#{Dogecoin::CURRENCY_ICON}"
     if balance > Dogecoin::WEALTHY_UPPER_BOUND
