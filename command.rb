@@ -96,7 +96,7 @@ class Command
     randomize_amount if (@amount == "random")
     
     raise Dogecoin::TOO_POOR_TEXT unless available_balance >= @amount + 1
-    raise Dogecoin::NETWORKINFO_ICON if @amount < Dogecoin::NO_PURPOSE_LOWER_BOUND
+    raise Dogecoin::NO_PURPOSE_LOWER_BOUND_TEXT if @amount < Dogecoin::NO_PURPOSE_LOWER_BOUND
   end
 
   def randomize_amount
