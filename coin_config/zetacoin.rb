@@ -1,4 +1,4 @@
-module Dogecoin
+module Zetacoin
   PERFORM_ERROR = 'such error no command wow no amaze'
   BALANCE_REPLY_PRETEXT = 'such balance'
   CURRENCY_ICON = 'Zeta'
