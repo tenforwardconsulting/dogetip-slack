@@ -13,8 +13,8 @@ module Bitcoin
 
   class Client
     def self.local(network)
-      puts "Connecting with user '#{ENV["#{network.upcase}_USER"]}' '#{ENV["#{network.upcase}_PASSWORD"]}'"
-      return Bitcoin::Client.new(ENV["#{network.upcase}_USER"], ENV["#{network.upcase}_PASSWORD"],
+      puts "Connecting with user '#{ENV["RPC_USER"]}' '#{ENV["RPC_PASSWORD"]}'"
+      return Bitcoin::Client.new(ENV['RPC_USER'], ENV['RPC_PASSWORD'],
         { :host => '127.0.0.1', :port => Bitcoin::NETWORKS[network.to_sym][:port], :ssl => false} )
     end
   end
