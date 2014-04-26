@@ -1,4 +1,5 @@
 require 'bitcoin-client'
+require 'coin_config/dogecoin.rb'
 require './bitcoin_client_extensions.rb'
 class Command
   attr_accessor :result, :action, :user_name, :icon_emoji
@@ -26,6 +27,7 @@ class Command
   end
 
   def balance
+    puts Dogecoin::VERSION
     balance = client.getbalance(@user_id)
     @result[:text] = "@#{@user_name} such balance #{balance}Ð"
     if (balance > 0)
@@ -90,11 +92,12 @@ class Command
   private
 
   def set_amount
-    @amount = @params.shift
+    amount = @params.shift
+    @amount = amount.to_i
     randomize_amount if (@amount == "random")
     
     raise "so poor not money many sorry" unless available_balance >= @amount + 1
-    raise "such stupid no purpose" if @amount < 10
+    #raise "such stupid no purpose" if @amount < 10
   end
 
   def randomize_amount
