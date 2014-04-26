@@ -18,7 +18,7 @@ class Command
     if ACTIONS.include?(@action)
       self.send("#{@action}".to_sym)
     else
-      raise "such error no command wow"
+      raise Dogecoin::PERFORM_ERROR
     end
   end
 
@@ -27,7 +27,6 @@ class Command
   end
 
   def balance
-    puts Dogecoin::VERSION
     balance = client.getbalance(@user_id)
     @result[:text] = "@#{@user_name} such balance #{balance}Ð"
     if (balance > 0)

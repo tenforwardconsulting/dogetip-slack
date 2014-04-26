@@ -1,3 +1,3 @@
 module Dogecoin
-  VERSION = '0.0.4'
+  PERFORM_ERROR = 'such error no command wow no amaze'
 end
