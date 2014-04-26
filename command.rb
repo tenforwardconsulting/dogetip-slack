@@ -29,11 +29,11 @@ class Command
   def balance
     balance = client.getbalance(@user_id)
     @result[:text] = "@#{@user_name} #{Dogecoin::BALANCE_REPLY} #{balance}#{Dogecoin::CURRENCY_ICON}"
-    if (balance > 0)
-      @result[:text] += " many coin"
-    elsif balance > 1000
+    if balance > 1000
       @result[:text] += " very wealth!"
       @result[:icon_emoji] = ":moneybag:"
+    elsif balance > 0 && balance < 1000
+      @result[:text] += " many coin"
     end
 
   end
