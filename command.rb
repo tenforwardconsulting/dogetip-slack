@@ -1,5 +1,5 @@
 require 'bitcoin-client'
-require 'coin_config/dogecoin.rb'
+require './coin_config/dogecoin.rb'
 require './bitcoin_client_extensions.rb'
 class Command
   attr_accessor :result, :action, :user_name, :icon_emoji
