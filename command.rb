@@ -31,7 +31,7 @@ class Command
     @result[:text] = "@#{@user_name} #{Dogecoin::BALANCE_REPLY_PRETEXT} #{balance}#{Dogecoin::CURRENCY_ICON}"
     if balance > Dogecoin::WEALTHY_UPPER_BOUND
       @result[:text] += Dogecoin::WEALTHY_UPPER_BOUND_POSTTEXT
-      @result[:icon_emoji] = Dogecoin::WEALTHY_UPPER_BOUND_ICON
+      @result[:icon_emoji] = Dogecoin::WEALTHY_UPPER_BOUND_EMOJI
     elsif balance > 0 && balance < Dogecoin::WEALTHY_UPPER_BOUND
       @result[:text] += Dogecoin::BALANCE_REPLY_POSTTEXT
     end
@@ -50,7 +50,7 @@ class Command
     set_amount
 
     tx = client.sendfrom @user_id, user_address(target_user), @amount
-    @result[:text] = "#{Dogecoin::TIP_PRETEXT} <@#{@user_id}> => <@#{target_user}> #{@amount}Ð"
+    @result[:text] = "#{Dogecoin::TIP_PRETEXT} <@#{@user_id}> => <@#{target_user}> #{@amount}#{Dogecoin::CURRENCY_ICON}"
     @result[:attachments] = [{
       fallback:"<@#{@user_id}> => <@#{target_user}> #{@amount}Ð",
       color: "good",
@@ -78,14 +78,14 @@ class Command
     address = @params.shift
     set_amount
     tx = client.sendfrom @user_id, address, @amount
-    @result[:text] = "such stingy <@#{@user_id}> => #{address} #{@amount}Ð (#{tx})"
-    @result[:icon_emoji] = ":shit:"
+    @result[:text] = "#{Dogecoin::WITHDRAW_TEXT} <@#{@user_id}> => #{address} #{@amount}#{Dogecoin::CURRENCY_ICON} (#{tx})"
+    @result[:icon_emoji] = Dogecoin::WITHDRAW_ICON
   end
 
   def networkinfo
     info = client.getinfo
     @result[:text] = info.to_s
-    @result[:icon_emoji] = ":bar_chart:"
+    @result[:icon_emoji] = Dogecoin::NETWORKINFO_ICON
   end
 
   private
@@ -95,15 +95,15 @@ class Command
     @amount = amount.to_i
     randomize_amount if (@amount == "random")
     
-    raise "so poor not money many sorry" unless available_balance >= @amount + 1
-    #raise "such stupid no purpose" if @amount < 10
+    raise Dogecoin::TOO_POOR_TEXT unless available_balance >= @amount + 1
+    raise Dogecoin::NETWORKINFO_ICON if @amount < Dogecoin::NO_PURPOSE_LOWER_BOUND
   end
 
   def randomize_amount
     lower = [1, @params.shift.to_i].min
     upper = [@params.shift.to_i, available_balance].max
     @amount = rand(lower..upper)
-    @result[:icon_emoji] = ":black_joker:"
+    @result[:icon_emoji] = Dogecoin::RANDOMIZED_EMOJI
   end
 
   def available_balance
