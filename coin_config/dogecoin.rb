@@ -8,4 +8,8 @@ module Dogecoin
   BALANCE_REPLY_POSTTEXT = ' many coin'
   DEPOSIT_PRETEXT = 'so deposit'
   DEPOSIT_POSTTEXT = 'many address wow'
+  TIP_ERROR_TEXT = 'pls say tip @username amount'
+  TIP_PRETEXT = 'such generous!'
+  TIP_POSTTEXT1 = 'http://dogechain.info/tx/'
+  TIP_POSTTEXT2 = '|such blockchain'
 end

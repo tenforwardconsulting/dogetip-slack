@@ -44,13 +44,13 @@ class Command
 
   def tip
     user = @params.shift
-    raise "pls say tip @username amount" unless user =~ /<@(U.+)>/
+    raise Dogecoin::TIP_ERROR_TEXT unless user =~ /<@(U.+)>/
 
     target_user = $1
     set_amount
 
     tx = client.sendfrom @user_id, user_address(target_user), @amount
-    @result[:text] = "such generous! <@#{@user_id}> => <@#{target_user}> #{@amount}Ð"
+    @result[:text] = "#{Dogecoin::TIP_PRETEXT} <@#{@user_id}> => <@#{target_user}> #{@amount}Ð"
     @result[:attachments] = [{
       fallback:"<@#{@user_id}> => <@#{target_user}> #{@amount}Ð",
       color: "good",
@@ -69,7 +69,7 @@ class Command
       }]
     }] 
     
-    @result[:text] += " (<http://dogechain.info/tx/#{tx}|such blockchain>)"
+    @result[:text] += " (<#{Dogecoin::TIP_POSTTEXT1}#{tx}#{Dogecoin::TIP_POSTTEXT2}>)"
   end
 
   alias :":dogecoin:" :tip
