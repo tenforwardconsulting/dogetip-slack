@@ -18,4 +18,5 @@ module Dogecoin
   TOO_POOR_TEXT = 'so poor not money many sorry'
   NO_PURPOSE_LOWER_BOUND = 1
   RANDOMIZED_EMOJI = ':black_joker:'
+  NETWORK = 'dogecoin'
 end

@@ -23,7 +23,7 @@ class Command
   end
 
   def client
-    @client ||= Bitcoin::Client.local('dogecoin')
+    @client ||= Bitcoin::Client.local(Dogecoin::NETWORK)
   end
 
   def balance
