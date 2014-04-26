@@ -20,4 +20,5 @@ module Dogecoin
   NO_PURPOSE_LOWER_BOUND = 1
   RANDOMIZED_EMOJI = ':black_joker:'
   NETWORK = 'dogecoin'
+  PORT = 22555
 end

@@ -24,7 +24,7 @@ class Command
   end
 
   def client
-    @client ||= Bitcoin::Client.local(@coin_config_module::NETWORK)
+    @client ||= Bitcoin::Client.local(@coin_config_module::PORT)
   end
 
   def balance
