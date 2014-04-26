@@ -39,7 +39,7 @@ class Command
   end
 
   def deposit
-    @result[:text] = "so deposit #{user_address(@user_id)} many address"
+    @result[:text] = "#{Dogecoin::DEPOSIT_PRETEXT} #{user_address(@user_id)} #{Dogecoin::DEPOSIT_POSTTEXT}"
   end
 
   def tip

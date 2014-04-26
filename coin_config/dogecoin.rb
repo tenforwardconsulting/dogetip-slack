@@ -6,4 +6,6 @@ module Dogecoin
   WEALTHY_UPPER_BOUND_POSTTEXT = ' very wealth!'
   WEALTHY_UPPER_BOUND_ICON = ':moneybag:'
   BALANCE_REPLY_POSTTEXT = ' many coin'
+  DEPOSIT_PRETEXT = 'so deposit'
+  DEPOSIT_POSTTEXT = 'many address wow'
 end
