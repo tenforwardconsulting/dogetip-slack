@@ -5,6 +5,8 @@ class Command
   attr_accessor :result, :action, :user_name, :icon_emoji
   ACTIONS = %w(balance info deposit tip withdraw networkinfo)
   def initialize(slack_params)
+    @coin_config_module = Kernel.const_get ENV['COIN'].capitalize
+    puts @coin_config_module::BALANCE_REPLY_PRETEXT
     text = slack_params['text']
     @params = text.split(/\s+/)
     raise "WACK" unless @params.shift == slack_params['trigger_word']
@@ -27,7 +29,6 @@ class Command
   end
 
   def balance
-    puts "#{Kernel.const_get(ENV['COIN'].capitalize)::BALANCE_REPLY_PRETEXT}"
     balance = client.getbalance(@user_id)
     @result[:text] = "@#{@user_name} #{Dogecoin::BALANCE_REPLY_PRETEXT} #{balance}#{Dogecoin::CURRENCY_ICON}"
     if balance > Dogecoin::WEALTHY_UPPER_BOUND
