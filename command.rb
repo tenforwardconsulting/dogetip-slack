@@ -122,7 +122,7 @@ class Command
 
   def commands
     
-    @result[:text] = "#{ACTIONS.join(', ' )}"
+    @result[:text] = "#{ACTIONS[0]}"
   end
 
 end
