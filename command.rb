@@ -79,7 +79,8 @@ class Command
     address = @params.shift
     set_amount
     tx = client.sendfrom @user_id, address, @amount
-    @result[:text] = "#{@coin_config_module::WITHDRAW_TEXT} <@#{@user_id}> => #{address} #{@amount}#{@coin_config_module::CURRENCY_ICON} (#{tx})"
+    @result[:text] = "#{@coin_config_module::WITHDRAW_TEXT} <@#{@user_id}> => #{address} #{@amount}#{@coin_config_module::CURRENCY_ICON} "
+    @result[:text] += " (<#{@coin_config_module::TIP_POSTTEXT1}#{tx}#{@coin_config_module::TIP_POSTTEXT2}>)"
     @result[:icon_emoji] = @coin_config_module::WITHDRAW_ICON
   end
 
