@@ -20,5 +20,4 @@ module Litecoin
   NO_PURPOSE_LOWER_BOUND = 1
   RANDOMIZED_EMOJI = ':black_joker:'
   NETWORK = 'litecoin'
-  PORT = 8332 
 end
