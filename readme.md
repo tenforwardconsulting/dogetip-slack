@@ -92,31 +92,8 @@
   * Set the Url to the server you'll be deploying on http://example.com:4567/tip
   * Launch the server!
     * `RPC_USER=litecoinrpc RPC_PASSWORD=your_pass SLACK_API_TOKEN=your_api_key COIN=litecoin bundle exec ruby tipper.rb -p 4569`
-
-
-# Setup
-1.  Install dogecoind on your server
-
-  1. Usually this is done on linux by building from [source](https://github.com/dogecoin/dogecoin)
-  2. Be sure to edit dogecoin.conf to set your rpcuser and rpcpassword
-  3. Launch dogecoind -daemon and wait for the blockchain to sync
-
-2. Clone this repo on your server
-
-3. run `bundle install`
-
-4. Set up the Slack integration: as an "outgoing webhook" (https://example.slack.com/services/new/outgoing-webhook)
-
-  1. Write down the api token they show you in this page
-  2. Set the trigger word: we use "dogetipper" but doesn't matter what you pick
-  3. Set the Url to the server you'll be deploying on http://example.com:4567/tip
-
-4. Launch the server!
-
-  `DOGECOIN_USER=rpcuser DOGECOIN_PASSWORD=rpcpassword SLACK_API_TOKEN=YOURSLACKTOKENHERE bundle exec ruby tipper.rb -p 4567`
   
-
-# Commands
+## Commands
 
 * Tip - send dogecoin!
 
