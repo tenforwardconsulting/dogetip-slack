@@ -127,3 +127,4 @@ This project was originally forked from [dogetip-slack](https://github.com/tenfo
 ## Support
 
 Like what you see or using this with your team? You can support [the developer](https://github.com/cgcardona) with bitcoin at `1Jwdn9NjhPHkUiEg4gHNaTrYe6s9RkXTs1`
+
