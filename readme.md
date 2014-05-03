@@ -114,8 +114,16 @@ For this example I'm using litecoin but the instructions should be similar for m
 * Write down the api token they show you in this page
 * Set the trigger word. For the litecoin example above we use `litecointipper`
 * Set the Url to the server you'll be deploying on http://example.com:4567/tip
-* Launch the server!
-  * `RPC_USER=litecoinrpc RPC_PASSWORD=your_pass SLACK_API_TOKEN=your_api_key COIN=litecoin bundle exec ruby tipper.rb -p 4567`
+
+#### Give your bot some attitude!
+
+* Copy `coin_config/litecoin.rb` to a file in `coin_config/` and name it after your coin. 
+* Open your newly copied file and change the name of the `module` to the same name as your coin. 
+* This file contains all the snippets of text, emojis, and variables needed to customize your bots behavior and attitude Launch the server!
+
+#### Fire up the server
+
+* `RPC_USER=litecoinrpc RPC_PASSWORD=your_pass SLACK_API_TOKEN=your_api_key COIN=litecoin bundle exec ruby tipper.rb -p 4567`
   
 ## Commands
 
@@ -141,7 +149,7 @@ For this example I'm using litecoin but the instructions should be similar for m
 
 ## Security
 
-This runs an unencrypted hot wallet on your server.  ***This is not even close to secure.***  You should not store significant amounts of dogecoin in this wallet.  Withdraw your tips to an offline wallet often. 
+This runs an unencrypted hot wallet on your server. You should not store significant amounts of cryptocoins in this wallet. Withdraw your tips to an offline wallet often. 
 
 ## Credits
 
