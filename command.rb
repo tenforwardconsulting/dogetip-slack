@@ -1,9 +1,11 @@
 require 'bitcoin-client'
+Dir['./coin_config/*.rb'].each {|file| require file }
 require './bitcoin_client_extensions.rb'
 class Command
   attr_accessor :result, :action, :user_name, :icon_emoji
-  ACTIONS = %w(balance info deposit tip withdraw networkinfo)
+  ACTIONS = %w(balance deposit tip withdraw networkinfo commands)
   def initialize(slack_params)
+    @coin_config_module = Kernel.const_get ENV['COIN'].capitalize
     text = slack_params['text']
     @params = text.split(/\s+/)
     raise "WACK" unless @params.shift == slack_params['trigger_word']
@@ -17,39 +19,39 @@ class Command
     if ACTIONS.include?(@action)
       self.send("#{@action}".to_sym)
     else
-      raise "such error no command wow"
+      raise @coin_config_module::PERFORM_ERROR
     end
   end
 
   def client
-    @client ||= Bitcoin::Client.local('dogecoin')
+    @client ||= Bitcoin::Client.local
   end
 
   def balance
     balance = client.getbalance(@user_id)
-    @result[:text] = "@#{@user_name} such balance #{balance}Ð"
-    if (balance > 0)
-      @result[:text] += " many coin"
-    elsif balance > 1000
-      @result[:text] += " very wealth!"
-      @result[:icon_emoji] = ":moneybag:"
+    @result[:text] = "@#{@user_name} #{@coin_config_module::BALANCE_REPLY_PRETEXT} #{balance}#{@coin_config_module::CURRENCY_ICON}"
+    if balance > @coin_config_module::WEALTHY_UPPER_BOUND
+      @result[:text] += @coin_config_module::WEALTHY_UPPER_BOUND_POSTTEXT
+      @result[:icon_emoji] = @coin_config_module::WEALTHY_UPPER_BOUND_EMOJI
+    elsif balance > 0 && balance < @coin_config_module::WEALTHY_UPPER_BOUND
+      @result[:text] += @coin_config_module::BALANCE_REPLY_POSTTEXT
     end
 
   end
 
   def deposit
-    @result[:text] = "so deposit #{user_address(@user_id)} many address"
+    @result[:text] = "#{@coin_config_module::DEPOSIT_PRETEXT} #{user_address(@user_id)} #{@coin_config_module::DEPOSIT_POSTTEXT}"
   end
 
   def tip
     user = @params.shift
-    raise "pls say tip @username amount" unless user =~ /<@(U.+)>/
+    raise @coin_config_module::TIP_ERROR_TEXT unless user =~ /<@(U.+)>/
 
     target_user = $1
     set_amount
 
     tx = client.sendfrom @user_id, user_address(target_user), @amount
-    @result[:text] = "such generous! <@#{@user_id}> => <@#{target_user}> #{@amount}Ð"
+    @result[:text] = "#{@coin_config_module::TIP_PRETEXT} <@#{@user_id}> => <@#{target_user}> #{@amount}#{@coin_config_module::CURRENCY_ICON}"
     @result[:attachments] = [{
       fallback:"<@#{@user_id}> => <@#{target_user}> #{@amount}Ð",
       color: "good",
@@ -68,7 +70,7 @@ class Command
       }]
     }] 
     
-    @result[:text] += " (<http://dogechain.info/tx/#{tx}|such blockchain>)"
+    @result[:text] += " (<#{@coin_config_module::TIP_POSTTEXT1}#{tx}#{@coin_config_module::TIP_POSTTEXT2}>)"
   end
 
   alias :":dogecoin:" :tip
@@ -77,31 +79,33 @@ class Command
     address = @params.shift
     set_amount
     tx = client.sendfrom @user_id, address, @amount
-    @result[:text] = "such stingy <@#{@user_id}> => #{address} #{@amount}Ð (#{tx})"
-    @result[:icon_emoji] = ":shit:"
+    @result[:text] = "#{@coin_config_module::WITHDRAW_TEXT} <@#{@user_id}> => #{address} #{@amount}#{@coin_config_module::CURRENCY_ICON} "
+    @result[:text] += " (<#{@coin_config_module::TIP_POSTTEXT1}#{tx}#{@coin_config_module::TIP_POSTTEXT2}>)"
+    @result[:icon_emoji] = @coin_config_module::WITHDRAW_ICON
   end
 
   def networkinfo
     info = client.getinfo
     @result[:text] = info.to_s
-    @result[:icon_emoji] = ":bar_chart:"
+    @result[:icon_emoji] = @coin_config_module::NETWORKINFO_ICON
   end
 
   private
 
   def set_amount
-    @amount = @params.shift
+    amount = @params.shift
+    @amount = amount.to_i
     randomize_amount if (@amount == "random")
     
-    raise "so poor not money many sorry" unless available_balance >= @amount + 1
-    raise "such stupid no purpose" if @amount < 10
+    raise @coin_config_module::TOO_POOR_TEXT unless available_balance >= @amount + 1
+    raise @coin_config_module::NO_PURPOSE_LOWER_BOUND_TEXT if @amount < @coin_config_module::NO_PURPOSE_LOWER_BOUND
   end
 
   def randomize_amount
     lower = [1, @params.shift.to_i].min
     upper = [@params.shift.to_i, available_balance].max
     @amount = rand(lower..upper)
-    @result[:icon_emoji] = ":black_joker:"
+    @result[:icon_emoji] = @coin_config_module::RANDOMIZED_EMOJI
   end
 
   def available_balance
@@ -115,6 +119,11 @@ class Command
     else
       @address = client.getnewaddress(user_id)
     end
+  end
+
+  def commands
+    
+    @result[:text] = "#{ACTIONS.join(', ' )}"
   end
 
 end
