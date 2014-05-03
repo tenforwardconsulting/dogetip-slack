@@ -1,6 +1,6 @@
 # Slack Tipbot
 
-#### A cryptocoin tipping bot for [Slack](https://slack.com)
+#### coin-agnostic crypto Tipbot for [Slack](https://slack.com)
 
 ## Setup
 
@@ -146,6 +146,17 @@ For this example I'm using litecoin but the instructions should be similar for m
 * Networkinfo - Get the output of getinfo.  Note:  this will disclose the entire aggregate balance of the hot wallet to everyone in the chat
 
   `litecointipper networkinfo`
+
+## Tested coins
+
+This has been tested w/ 
+
+* btc
+* ltc
+* doge
+* zeta
+
+Please let me know when you try it with other coins so that I can update the list. 
 
 ## Security
 
