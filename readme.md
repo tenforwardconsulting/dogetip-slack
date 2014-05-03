@@ -119,9 +119,9 @@ For this example I'm using litecoin but the instructions should be similar for m
 
 * Copy `coin_config/litecoin.rb` to a file in `coin_config/` and name it after your coin. 
 * Open your newly copied file and change the name of the `module` to the same name as your coin. 
-* This file contains all the snippets of text, emojis, and variables needed to customize your bots behavior and attitude Launch the server!
+* This file contains all the snippets of text, emojis, and variables needed to customize your bot's behavior and attitude 
 
-#### Fire up the server
+#### Launch the server!
 
 * `RPC_USER=litecoinrpc RPC_PASSWORD=your_pass SLACK_API_TOKEN=your_api_key COIN=litecoin bundle exec ruby tipper.rb -p 4567`
   
