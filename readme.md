@@ -151,6 +151,6 @@ This project was originally forked from [dogetip-slack](https://github.com/tenfo
 
 Like what you see or using this with your team? You can support [the developer](https://github.com/cgcardona) with bitcoin at `1Jwdn9NjhPHkUiEg4gHNaTrYe6s9RkXTs1`
 
-Further the developer is a founding member of the [http://blocktech.co](Blockchain Technology Group) that currently is developing open-source software, hardware and altcoins in the crypto-currency space.  If you would like to support BlockTech, you may donate at `1PYNQ3iUSRrzJjEB2FniGruLaz11vMuPmo`.
+Further the developer is a founding member of the [Blockchain Technology Group](http://blocktech.co) that currently is developing open-source software, hardware and altcoins in the crypto-currency space.  If you would like to support BlockTech, you may donate at `1PYNQ3iUSRrzJjEB2FniGruLaz11vMuPmo`.
 
 [Disclaimer: BlockTech and its affiliates are not non-profit nor charitable organizations and any donations should in no way be considered a charitable donation for income tax purposes]
