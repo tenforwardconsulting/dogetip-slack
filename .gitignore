@@ -1,1 +1,7 @@
 .bundle
+*.swp
+*.swo
+*.swm
+*.swn
+*.DS_STORE
+.gitignore
