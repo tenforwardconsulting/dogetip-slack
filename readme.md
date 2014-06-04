@@ -165,3 +165,9 @@ This runs an unencrypted hot wallet on your server. You should not store signifi
 ## Credits
 
 This project was originally forked from [dogetip-slack](https://github.com/tenforwardconsulting/dogetip-slack) by [tenforwardconsulting](https://github.com/tenforwardconsulting)
+
+## Support
+
+Like what you see or using this with your team? You can support [the developer](https://github.com/cgcardona) with bitcoin at `1Jwdn9NjhPHkUiEg4gHNaTrYe6s9RkXTs1`
+
+Further the developer is a founding member of the [Blockchain Technology Group](http://blocktech.co) that currently is developing open-source software, hardware and altcoins in the crypto-currency space.  If you would like to support BlockTech, you may donate at `1PYNQ3iUSRrzJjEB2FniGruLaz11vMuPmo`.
