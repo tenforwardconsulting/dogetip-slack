@@ -153,6 +153,7 @@ This has been tested w/
 
 * btc
 * ltc
+* florincoin
 * doge
 * zeta
 
