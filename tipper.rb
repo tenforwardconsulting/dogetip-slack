@@ -17,6 +17,7 @@ post "/tip" do
     json command.result
   rescue Exception => ex
     json text: "so error: #{ex.message}", icon_emoji: ":japanese_goblin:"
+    puts ex.backtrace
   end
 end
 

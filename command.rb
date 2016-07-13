@@ -66,8 +66,8 @@ class Command
         value: "<@#{target_user}>",
         short: true
       }]
-    }] 
-    
+    }]
+
     @result[:text] += " (<http://dogechain.info/tx/#{tx}|such blockchain>)"
   end
 
@@ -92,7 +92,8 @@ class Command
   def set_amount
     @amount = @params.shift
     randomize_amount if (@amount == "random")
-    
+    @amount = @amount.to_i
+
     raise "so poor not money many sorry" unless available_balance >= @amount + 1
     raise "such stupid no purpose" if @amount < 10
   end
