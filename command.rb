@@ -95,7 +95,7 @@ class Command
     @amount = @amount.to_i
 
     raise "so poor not money many sorry" unless available_balance >= @amount + 1
-    raise "such stupid no purpose" if @amount < 10
+    raise "such stupid no purpose" if @amount < 1
   end
 
   def randomize_amount
